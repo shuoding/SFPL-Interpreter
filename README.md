@@ -20,11 +20,15 @@ This is a special value representing nothing.
 
 SFPL supports 10 basic integer operators: ```+ - * / == != < <= > >=```. The meaning of them are clear. The values of comparison operations are also integers, where ```1``` indicates true and ```0``` indicates false.
 
+```<expression-1>``` evaluates to its value before ```<expression-2>```.
+
 ```<expression-1>``` and ```<expression-2>``` must evaluate to integers, otherwise the interpreter will terminate and print an error message.
 
 #### Pair Construction: ```(pair <expression-1> <expression-2>)```
 
 ```pair``` is used to construct pairs from two arbitrary valid expressions.
+
+```<expression-1>``` evaluates to its value before ```<expression-2>```.
 
 The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the same. Actually, you can use ```pair``` and ```nil``` together to imitate lists. For example, ```(pair 1 (pair 2 (pair 3 nil)))``` could be used to represent a list containing ```1```, ```2```, and ```3```.
 
@@ -38,11 +42,13 @@ The types of ```<expression>``` must be pairs, otherwise the interpreter will te
 
 This is an easy way to introduce variables. For example, ```(let x 1 (+ x 2))``` evaluates to ```3```. If there are nested ```let``` bindings introducing duplicate variable names, the inner one is effective.
 
+It acts like call-by-value, meaning that ```<expression-1>``` is evaluates to its value before ```<expression-2>```.
+
 #### If Expression: ```(if <condition-expression> <expression-1> <expression-2>)```
 
 If ```<condition-expression>```'s value is zero, the ```if``` expression evaluates to ```<expression-1>```'s value. Otherwise, the ```if``` expression evaluates to ```<expression-2>```'s value.
 
-Only the chosen branch will be evaluated, which implies some errors and nonterminating cases could be bypassed.
+```<condition-expression>``` evaluates to its value first. Then, only the chosen branch will be evaluated, which implies some errors and nonterminating cases could be bypassed.
 
 Since SFPL is a dynamically-typed language, the types of ```<expression-1>``` and ```<expression-1>``` don't need to be the same. However, ```<condition-expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error message.
 
@@ -57,6 +63,8 @@ This whole expression evaluates to a closure.
 Since SFPL is a dynamically-typed language, there is no type associated to ```<parameter-variable>```, and one function can return different types of values based on its argument's type.
 
 #### Function Call: ```(call <closure-expression> <argument-expression>)```
+
+```<closure-expression>``` evaluates to its value before ```<argument-expression>```.
 
 ```<closure-expression>``` must evaluate to a closure, otherwise the interpreter will terminate and print an error message.
 
