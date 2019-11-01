@@ -8,37 +8,37 @@ This repository contains an interpreter of SFPL. The interpreter is written in H
 
 SFPL's syntax is similar to Lisp's syntax. A SFPL program is essentially an expression. An expression could be in one of the following forms.
 
-##### Integer Literals: ```<nonnegative-integer>```
+#### Integer Literals: ```<nonnegative-integer>```
 
 You can only write nonnegative integer literals. For negative integer literals, please use integer operators. For example, ```-7``` should be written as something like ```(- 0 7)```, or ```(call (function neg x (- 0 x)) 7)``` if you like.
 
-##### The Nil Literal: ```nil```
+#### The Nil Literal: ```nil```
 
 This is a special value representing nothing.
 
-##### Integer Operations: ```(<integer-operator> <expression-1> <expression-2>)```
+#### Integer Operations: ```(<integer-operator> <expression-1> <expression-2>)```
 
 SFPL supports 10 basic integer operators: ```+ - * / == != < <= > >=```. The meaning of them are clear. The values of comparison operations are also integers, where ```1``` indicates true and ```0``` indicates false.
 
 ```<expression-1>``` and ```<expression-2>``` must evaluate to integers, otherwise the interpreter will terminate and print an error message.
 
-##### Pair Construction: ```(pair <expression-1> <expression-2>)```
+#### Pair Construction: ```(pair <expression-1> <expression-2>)```
 
 ```pair``` is used to construct pairs from two arbitrary valid expressions.
 
 The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the same. Actually, you can use ```pair``` and ```nil``` together to imitate lists. For example, ```(pair 1 (pair 2 (pair 3 nil)))``` could be used to represent a list containing ```1```, ```2```, and ```3```.
 
-##### Extracting Components from Pairs: ```(first <expression>)``` and ```(second <expression>)```
+#### Extracting Components from Pairs: ```(first <expression>)``` and ```(second <expression>)```
 
 ```first``` and ```second``` act like what your intuition tells you.
 
 The types of ```<expression>``` must be pairs, otherwise the interpreter will terminate and print an error message.
 
-##### Let Binding: ```(let <variable> <expression-1> <expression-2>)```
+#### Let Binding: ```(let <variable> <expression-1> <expression-2>)```
 
 This is an easy way to introduce variables. For example, ```(let x 1 (+ x 2))``` evaluates to ```3```. If there are nested ```let``` bindings introducing duplicate variable names, the inner one is effective.
 
-##### If Expression: ```(if <condition-expression> <expression-1> <expression-2>)```
+#### If Expression: ```(if <condition-expression> <expression-1> <expression-2>)```
 
 If ```<condition-expression>```'s value is zero, the ```if``` expression evaluates to ```<expression-1>```'s value. Otherwise, the ```if``` expression evaluates to ```<expression-2>```'s value.
 
@@ -46,7 +46,7 @@ Only the chosen branch will be evaluated, which implies some errors and nontermi
 
 Since SFPL is a dynamically-typed language, the types of ```<expression-1>``` and ```<expression-1>``` don't need to be the same. However, ```<condition-expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error message.
 
-##### Function Definition: ```(function <function-name-variable> <parameter-variable> <function-body-expression>)```
+#### Function Definition: ```(function <function-name-variable> <parameter-variable> <function-body-expression>)```
 
 SFPL only supports one parameter functions, but you can imitate multi-parameter functions via currying, since higher order functions are supported.
 
@@ -56,15 +56,15 @@ This whole expression evaluates to a closure.
 
 Since SFPL is a dynamically-typed language, there is no type associated to ```<parameter-variable>```, and one function can return different types of values based on its argument's type.
 
-##### Function Call: ```(call <closure-expression> <argument-expression>)```
+#### Function Call: ```(call <closure-expression> <argument-expression>)```
 
 ```<closure-expression>``` must evaluate to a closure, otherwise the interpreter will terminate and print an error message.
 
-##### Type Predicates: ```(<type-predicate> <expression>)```
+#### Type Testers: ```(<type-tester> <expression>)```
 
-SFPL supports 4 type predicates: ```isNil```, ```isInt```, ```isClosure```, and ```isPair```. The return values of those predicates are integers, where ```1``` indicates true and ```0``` indicates false.
+SFPL supports 4 type testers: ```isNil```, ```isInt```, ```isClosure```, and ```isPair```. The return values of those testers are integers, where ```1``` indicates true and ```0``` indicates false.
 
-##### Input and Output: ```getIntLine``` and ```(putIntLine <expression>)```
+#### Input and Output: ```getIntLine``` and ```(putIntLine <expression>)```
 
 SFPL only supports integer input and output. Each line is treated as an integer. ```getIntLine``` reads one line from the standard input and tries to convert it to an integer. If it fails, the interpreter will terminate and print an error. ```putIntLine``` prints an integer as one line to the standard output. ```<expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error.
 
