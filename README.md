@@ -2,15 +2,15 @@
 
 SFPL (Small Functional Programming Language) is a very small dynamically typed functional programming language. It supports basic integer arithmetic and comparison operations, the ```let``` binding, the ```if``` expression, function definitions and function calls with lexical scoping, recursive functions, higher order functions, the ```pair``` data structure, and simple integer input and output.
 
-This repository contains an interpreter of SFPL. The interpreter is written in Haskell. For simplicity, it doesn't contain a ```main``` function. To run the interpreter, you can load it into GHCi and call the ```interpret``` function with your SFPL program (a String) as the argument.
+This repository contains a SFPL interpreter written in Haskell. For simplicity, it doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument.
 
 ## SFPL Tutorial
 
-SFPL's syntax is similar to Lisp's syntax. A SFPL program is essentially an expression. An expression could be in one of the following forms.
+SFPL's syntax is similar to Lisp's syntax. A SFPL program is essentially an expression, which could be in one of the following forms.
 
 #### 1. Integer Literals: ```<nonnegative-integer>```
 
-You can only write nonnegative integer literals. For negative integer literals, please use integer operators. For example, ```-7``` should be written as something like ```(- 0 7)```, or ```(call (function neg x (- 0 x)) 7)``` if you like.
+You can only write nonnegative integer literals. For negative integer literals, please use integer operators. For example, ```-7``` could be written as something like ```(- 0 7)```, or ```(call (function neg x (- 0 x)) 7)``` if you like.
 
 #### 2. The Nil Literal: ```nil```
 
@@ -30,7 +30,7 @@ SFPL supports 10 basic integer operators: ```+ - * / == != < <= > >=```. The mea
 
 ```<expression-1>``` evaluates to its value before ```<expression-2>```.
 
-The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the same. In addition, you can use ```pair``` and ```nil``` together to imitate lists, such as ```(pair 1 (pair 2 (pair 3 nil)))```.
+The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the same. Actually, you can use ```pair``` and ```nil``` together to imitate lists, such as ```(pair 1 (pair 2 (pair 3 nil)))```.
 
 #### 5. Extracting Components from Pairs: ```(first <expression>)``` and ```(second <expression>)```
 
@@ -40,7 +40,7 @@ The type of ```<expression>``` must be pair, otherwise the interpreter will term
 
 #### 6. Let Binding: ```(let <variable> <expression-1> <expression-2>)```
 
-This is an easy way to introduce variables. For example, ```(let x 1 (+ x 2))``` evaluates to ```3```. If there are nested ```let``` bindings introducing duplicate variable names, the innermost one is effective.
+This is an easy way to introduce variables. Variable names can only contain English letters. For example, ```(let x 1 (+ x 2))``` evaluates to ```3```. If there are nested ```let``` bindings introducing duplicate variable names, the innermost one is effective.
 
 It acts like the call-by-value semantics, meaning that ```<expression-1>``` evaluates to its value before ```<expression-2>```.
 
@@ -58,7 +58,7 @@ SFPL only supports one parameter functions, but you can imitate multi-parameter 
 
 You can call ```<function-name-variable>``` in ```<function-body-expression>``` to define recursive functions.
 
-This whole expression evaluates to a closure.
+The whole function definition expression evaluates to a closure.
 
 Since SFPL is a dynamically-typed language, there is no type associated to ```<parameter-variable>```, and one function can return different types of values based on its argument's type.
 
