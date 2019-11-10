@@ -76,6 +76,8 @@ SFPL supports 4 type testers: ```isNil```, ```isInt```, ```isClosure```, and ```
 
 SFPL only supports integer input and output. Each line is treated as an integer. ```getIntLine``` reads one line from the standard input and tries to convert it to an integer. If it succeeds, that ```getIntLine``` evaluates to that integer. If it fails, the interpreter will terminate and print an error. ```putIntLine``` prints an integer as one line to the standard output and evaluates to ```nil```. ```<expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error.
 
+When you use ```getIneLine``` and ```putIntLine```, please pay attention to the evaluation order.
+
 ## Examples
 
     *Main> interpret "(+ 1 2)"
