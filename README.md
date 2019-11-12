@@ -89,6 +89,87 @@ When you use ```getIneLine``` and ```putIntLine```, please pay attention to the 
     *Main> interpret "(call (function factorial n (if (== n 0) 1 (* n (call factorial (- n 1))))) 6)"
     720
 
+## A Complex Example
+
+Here is a SFPL implementation of Quicksort. Specifically, it first reads a integer n from the standard input, and then reads n integers from the standard input, sorts them, and prints them to the standard output.
+
+You may copy this program to ```quicksort.sfpl``` and do something like ```readFile "quicksort.sfpl" >>= interpret``` in GHCi. Then you can manually type your input and see the results. Notice that you can type some negative integers among those n integers that will be sorted. The restriction of nonnegative integers is only applicable to integer literals in the SFPL source code.
+
+```
+(let printList
+(function pl l
+	(if (isNil l)
+		nil
+		(let dummy (putIntLine (first l)) (call pl (second l)))
+	)
+)
+(let getList
+(function gl n
+	(if (== 0 n)
+		nil
+		(pair getIntLine (call gl (- n 1)))
+	)
+)
+(let append
+(function apA l
+	(function apB x
+		(if (isNil l)
+			(pair x nil)
+			(pair (first l) (call (call apA (second l)) x))
+		)
+	)
+)
+(let filterLess
+(function flA x
+	(function flB l
+		(if (isNil l)
+			nil
+			(if (< (first l) x)
+				(pair (first l) (call (call flA x) (second l)))
+				(call (call flA x) (second l))
+			)
+		)
+	)
+)
+(let filterGreaterEqual
+(function fgeA x
+	(function fgeB l
+		(if (isNil l)
+			nil
+			(if (>= (first l) x)
+				(pair (first l) (call (call fgeA x) (second l)))
+				(call (call fgeA x) (second l))
+			)
+		)
+	)
+)
+(let concatenate
+(function catA la
+	(function catB lb
+		(if (isNil la)
+			lb
+			(pair (first la) (call (call catA (second la)) lb))
+		)
+	)
+)
+(let quickSort
+(function qs l
+	(if (isNil l)
+		nil
+		(let pivot (first l)
+		(let lHalf (call (call filterLess pivot) (second l))
+		(let rHalf (call (call filterGreaterEqual pivot) (second l))
+		(let lHalfSorted (call qs lHalf)
+		(let rHalfSorted (call qs rHalf)
+		(let lHalfSortedAndPivot (call (call append lHalfSorted) pivot)
+			(call (call concatenate lHalfSortedAndPivot) rHalfSorted)
+		))))))
+	)
+)
+(call printList (call quickSort (call getList getIntLine)))
+)))))))
+```
+
 ## GHC Version
 
 This program has been tested on ```GHCi, version 8.6.5```.
