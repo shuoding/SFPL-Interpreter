@@ -172,4 +172,4 @@ You may copy this program to ```quicksort.sfpl``` and do something like ```readF
 
 ## GHC Version
 
-This program has been tested on ```GHCi, version 8.6.5```.
+This interpreter has been compiled successfully on ```GHCi, version 8.6.5```.
