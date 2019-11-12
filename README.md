@@ -4,6 +4,8 @@ SFPL (Small Functional Programming Language) is a very small dynamically typed f
 
 This repository contains a SFPL interpreter written in Haskell. For simplicity, it doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument.
 
+The interpreter has been tested on ```GHCi, version 8.6.5```.
+
 ## SFPL Tutorial
 
 SFPL's syntax is similar to Lisp's syntax. A SFPL program is essentially an expression, which could be in one of the following forms.
@@ -78,7 +80,7 @@ SFPL only supports integer input and output. Each line is treated as an integer.
 
 When you use ```getIneLine``` and ```putIntLine```, please pay attention to the evaluation order.
 
-## Examples
+## Simple Examples
 
     *Main> interpret "(+ 1 2)"
     3
@@ -89,7 +91,7 @@ When you use ```getIneLine``` and ```putIntLine```, please pay attention to the 
     *Main> interpret "(call (function factorial n (if (== n 0) 1 (* n (call factorial (- n 1))))) 6)"
     720
 
-## A Complex Example
+## A Complex Example (Quicksort)
 
 Here is a SFPL implementation of Quicksort. Specifically, it first reads a integer n from the standard input, and then reads n integers from the standard input, sorts them, and prints them to the standard output.
 
@@ -169,7 +171,3 @@ You may copy this program to ```quicksort.sfpl``` and do something like ```readF
 (call printList (call quickSort (call getList getIntLine)))
 )))))))
 ```
-
-## GHC Version
-
-This interpreter has been compiled successfully on ```GHCi, version 8.6.5```.
