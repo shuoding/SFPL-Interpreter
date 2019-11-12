@@ -56,7 +56,7 @@ Since SFPL is a dynamically-typed language, the types of ```<expression-1>``` an
 
 SFPL only supports one parameter functions, but you can imitate multi-parameter functions via currying, since higher order functions are supported.
 
-You can call ```<function-name-variable>``` in ```<function-body-expression>``` to define recursive functions.
+You can call ```<function-name-variable>``` in ```<function-body-expression>``` to define recursive functions. Notice that actually you can only use ```<function-name-variable>``` in ```<function-body-expression>```, and in order to call the function elsewhere, you can either call the function definition directly (something like ```(call (function f x x) 1)```) or use the ```let``` binding to create a new name for the function for later use.
 
 The whole function definition expression evaluates to a closure.
 
