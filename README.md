@@ -6,6 +6,8 @@ This repository contains a SFPL interpreter written in Haskell. For simplicity, 
 
 The interpreter has been tested on ```GHCi, version 8.6.5```.
 
+Feel free to copy, clone, and use the content of this repository. However, if you want to use it in a public situation (for example, doing a presentation), please cite the link of this repository. The original author of this repository is not responsible for any consequences of using the content of this repository.
+
 ## SFPL Tutorial
 
 SFPL's syntax is similar to Lisp's syntax. A SFPL program is essentially an expression, which could be in one of the following forms.
