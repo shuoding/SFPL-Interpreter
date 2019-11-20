@@ -2,7 +2,7 @@
 
 SFPL (Small Functional Programming Language) is a very small dynamically typed functional programming language. It supports basic integer arithmetic and comparison operations, the ```let``` binding, the ```if``` expression, function definitions and function calls with lexical scoping, recursive functions, higher order functions, the ```pair``` data structure, and simple integer input and output.
 
-This repository contains a SFPL interpreter written in Haskell. For simplicity, it doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument.
+This repository contains a SFPL interpreter written in Haskell. For simplicity, it doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument. Notice that integers in SFPL are represented by the ```Int``` type in GHCi, so they have size limits.
 
 The interpreter has been tested on ```GHCi, version 8.6.5```.
 
