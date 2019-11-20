@@ -95,7 +95,7 @@ When you use ```getIneLine``` and ```putIntLine```, please pay attention to the 
 
 ## A Complex Example (Quicksort)
 
-Here is a SFPL implementation of Quicksort. Specifically, it first reads a integer n from the standard input, and then reads n integers from the standard input, sorts them, and prints them to the standard output.
+Here is a SFPL implementation of Quicksort. Specifically, it first reads an integer n from the standard input, and then reads n integers from the standard input, sorts them, and prints them to the standard output.
 
 You may copy this program to ```quicksort.sfpl``` and do something like ```readFile "quicksort.sfpl" >>= interpret``` in GHCi. Then you can manually type your input and see the results. Notice that you can type some negative integers among those n integers that will be sorted. The restriction of nonnegative integers is only applicable to integer literals in the SFPL source code.
 
