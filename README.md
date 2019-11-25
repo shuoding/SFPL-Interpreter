@@ -4,7 +4,7 @@ SFPL (Small Functional Programming Language) is a very small dynamically typed f
 
 This repository contains a SFPL interpreter written in Haskell. For simplicity, it doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument. Notice that integers in SFPL are represented by the ```Int``` type in GHCi, so they have size limits.
 
-The interpreter has been tested on ```GHCi, version 8.6.5```.
+This interpreter has been tested on ```GHCi, version 8.6.5```.
 
 Feel free to copy, clone, and use the content of this repository. However, if you want to use it in a public situation (for example, doing a presentation), please cite the link of this repository. The original author of this repository is not responsible for any consequences of using the content of this repository.
 
@@ -18,7 +18,7 @@ You can only write nonnegative integer literals. For negative integer literals, 
 
 #### 2. The Nil Literal: ```nil```
 
-This is a special value representing nothing.
+This is just a special value.
 
 #### 3. Integer Operations: ```(<integer-operator> <expression-1> <expression-2>)```
 
@@ -80,7 +80,7 @@ SFPL supports 4 type testers: ```isNil```, ```isInt```, ```isClosure```, and ```
 
 SFPL only supports integer input and output. Each line is treated as an integer. ```getIntLine``` reads one line from the standard input and tries to convert it to an integer. If it succeeds, that ```getIntLine``` evaluates to that integer. If it fails, the interpreter will terminate and print an error. ```putIntLine``` prints an integer as one line to the standard output and evaluates to ```nil```. ```<expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error.
 
-When you use ```getIneLine``` and ```putIntLine```, please pay attention to the evaluation order.
+When you use ```getIntLine``` and ```putIntLine```, please pay attention to the evaluation order.
 
 ## Simple Examples
 
@@ -93,7 +93,7 @@ When you use ```getIneLine``` and ```putIntLine```, please pay attention to the 
     *Main> interpret "(call (function factorial n (if (== n 0) 1 (* n (call factorial (- n 1))))) 6)"
     720
 
-## A Complex Example (Quicksort)
+## A Slightly Complex Example (Quicksort)
 
 Here is a SFPL implementation of Quicksort. Specifically, it first reads an integer n from the standard input, and then reads n integers from the standard input, sorts them, and prints them to the standard output.
 
