@@ -1,20 +1,20 @@
 # SFPL
 
-SFPL (Small Functional Programming Language) is a very small dynamically typed functional programming language. It supports basic integer arithmetic and comparison operations, the ```let``` binding, the ```if``` expression, function definitions and function calls with lexical scoping, recursive functions, higher order functions, the ```pair``` data structure, and simple integer input and output.
+SFPL (Small Functional Programming Language) is a very small dynamically typed functional programming language.
 
-This repository contains a SFPL interpreter written in Haskell. For simplicity, it doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument. Notice that integers in SFPL are represented by the ```Int``` type in GHCi, so they have size limits.
+This repository contains a SFPL interpreter written in Haskell. It doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument. Integers in SFPL are represented by the ```Int``` type in GHCi, so they have size limits.
 
 This interpreter has been tested on ```GHCi, version 8.6.5```.
 
-Feel free to copy, clone, and use the content of this repository. However, if you want to use it in a public situation (for example, doing a presentation), please cite the link of this repository. The original author of this repository is not responsible for any consequences of using the content of this repository.
+Feel free to copy, clone, and use the content of this repository. However, if you want to use it in a public situation, please cite the link of this repository. The original author of this repository is not responsible for any consequences of using the content of this repository.
 
 ## SFPL Tutorial
 
-SFPL's syntax is similar to Lisp's syntax. A SFPL program is essentially an expression, which could be in one of the following forms.
+SFPL's syntax is similar to Lisp's syntax. A SFPL program is an expression, which could be in one of the following forms.
 
 #### 1. Integer Literals: ```<nonnegative-integer>```
 
-You can only write nonnegative integer literals. For negative integer literals, please use integer operators. For example, ```-7``` could be written as something like ```(- 0 7)```, or ```(call (function neg x (- 0 x)) 7)``` if you like.
+You can only write nonnegative integer literals. For negative integer literals like ```-7```, please use something like ```(- 0 7)```.
 
 #### 2. The Nil Literal: ```nil```
 
@@ -34,7 +34,7 @@ SFPL supports 10 basic integer operators: ```+ - * / == != < <= > >=```. The mea
 
 ```<expression-1>``` evaluates to its value before ```<expression-2>```.
 
-The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the same. Actually, you can use ```pair``` and ```nil``` together to imitate lists, such as ```(pair 1 (pair 2 (pair 3 nil)))```.
+The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the same. You can use ```pair``` and ```nil``` to construct lists, such as ```(pair 1 (pair 2 (pair 3 nil)))```.
 
 #### 5. Extracting Components from Pairs: ```(first <expression>)``` and ```(second <expression>)```
 
@@ -54,7 +54,7 @@ If ```<condition-expression>```'s value is zero, the ```if``` expression evaluat
 
 ```<condition-expression>``` evaluates to its value first. Then, only the chosen branch will be evaluated, which implies some errors and nonterminating cases could be bypassed.
 
-Since SFPL is a dynamically-typed language, the types of ```<expression-1>``` and ```<expression-1>``` don't need to be the same. However, ```<condition-expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error message.
+The types of ```<expression-1>``` and ```<expression-1>``` don't need to be the same. However, ```<condition-expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error message.
 
 #### 8. Function Definition: ```(function <function-name-variable> <parameter-variable> <function-body-expression>)```
 
@@ -64,7 +64,7 @@ You can call ```<function-name-variable>``` in ```<function-body-expression>``` 
 
 The whole function definition expression evaluates to a closure.
 
-Since SFPL is a dynamically-typed language, there is no type associated to ```<parameter-variable>```, and one function can return different types of values based on its argument's type.
+There is no type associated to ```<parameter-variable>```, and one function can return different types of values based on its argument's type.
 
 #### 9. Function Call: ```(call <closure-expression> <argument-expression>)```
 
@@ -95,9 +95,9 @@ When you use ```getIntLine``` and ```putIntLine```, please pay attention to the 
 
 ## A Slightly Complex Example (Quicksort)
 
-Here is a SFPL implementation of Quicksort. Specifically, it first reads an integer n from the standard input, and then reads n integers from the standard input, sorts them, and prints them to the standard output.
+Here is a SFPL implementation of Quicksort. It first reads an integer n from the standard input, and then reads n integers from the standard input, sorts them, and prints them to the standard output.
 
-You may copy this program to ```quicksort.sfpl``` and do something like ```readFile "quicksort.sfpl" >>= interpret``` in GHCi. Then you can manually type your input and see the results. Notice that you can type some negative integers among those n integers that will be sorted. The restriction of nonnegative integers is only applicable to integer literals in the SFPL source code.
+You may copy this program to ```quicksort.sfpl``` and do something like ```readFile "quicksort.sfpl" >>= interpret``` in GHCi. Then you can manually type your input and see the results.
 
 ```
 (let printList
