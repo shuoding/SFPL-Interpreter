@@ -2,11 +2,13 @@
 
 SFPL (Small Functional Programming Language) is a very small dynamically typed functional programming language.
 
-This repository contains a SFPL interpreter written in Haskell. It doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument. Integers in SFPL are represented by the ```Int``` type in GHCi, so they have size limits.
+This repository contains a SFPL interpreter written in Haskell. It doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument.
+
+Integers in SFPL are represented by the ```Int``` type in GHCi, so they have size limits.
 
 This interpreter has been tested on ```GHCi, version 8.6.5```.
 
-Feel free to copy, clone, and use the content of this repository. However, if you want to use it in a public situation, please cite the link of this repository. The original author of this repository is not responsible for any consequences of using the content of this repository.
+Feel free to copy, clone, and use the content of this repository. If you want to use it in a public situation, please cite the link of this repository. The original author of this repository is not responsible for any consequences of using the content of this repository.
 
 ## SFPL Tutorial
 
@@ -38,19 +40,17 @@ The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the 
 
 #### 5. Extracting Components from Pairs: ```(first <expression>)``` and ```(second <expression>)```
 
-```first``` and ```second``` act like what your intuition tells you.
-
 The type of ```<expression>``` must be pair, otherwise the interpreter will terminate and print an error message.
 
 #### 6. Let Binding: ```(let <variable> <expression-1> <expression-2>)```
 
-This is an easy way to introduce variables. Variable names can only contain English letters. For example, ```(let x 1 (+ x 2))``` evaluates to ```3```. If there are nested ```let``` bindings introducing duplicate variable names, the innermost one is effective.
+This is an easy way to introduce variables. Variable names can only contain English letters. If there are nested ```let``` bindings introducing duplicate variable names, the innermost one is effective.
 
 It acts like the call-by-value semantics, meaning that ```<expression-1>``` evaluates to its value before ```<expression-2>```.
 
 #### 7. If Expression: ```(if <condition-expression> <expression-1> <expression-2>)```
 
-If ```<condition-expression>```'s value is zero, the ```if``` expression evaluates to ```<expression-1>```'s value. Otherwise, the ```if``` expression evaluates to ```<expression-2>```'s value.
+If ```<condition-expression>```'s value is zero, the ```if``` expression evaluates to ```<expression-1>```'s value; otherwise, it evaluates to ```<expression-2>```'s value.
 
 ```<condition-expression>``` evaluates to its value first. Then, only the chosen branch will be evaluated, which implies some errors and nonterminating cases could be bypassed.
 
@@ -78,7 +78,9 @@ SFPL supports 4 type testers: ```isNil```, ```isInt```, ```isClosure```, and ```
 
 #### 11. Input and Output: ```getIntLine``` and ```(putIntLine <expression>)```
 
-SFPL only supports integer input and output. Each line is treated as an integer. ```getIntLine``` reads one line from the standard input and tries to convert it to an integer. If it succeeds, that ```getIntLine``` evaluates to that integer. If it fails, the interpreter will terminate and print an error. ```putIntLine``` prints an integer as one line to the standard output and evaluates to ```nil```. ```<expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error.
+SFPL only supports integer input and output. Each line is treated as an integer. ```getIntLine``` reads one line from the standard input and tries to convert it to an integer. If it succeeds, it ```getIntLine``` evaluates to that integer; otherwise, the interpreter will terminate and print an error. ```putIntLine``` prints an integer as one line to the standard output and evaluates to ```nil```. 
+
+```<expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error.
 
 When you use ```getIntLine``` and ```putIntLine```, please pay attention to the evaluation order.
 
