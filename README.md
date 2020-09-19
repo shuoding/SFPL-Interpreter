@@ -8,7 +8,7 @@ Integers in SFPL are represented by the ```Int``` type in GHCi, so they have siz
 
 This interpreter has been tested on ```GHCi, version 8.6.5```.
 
-Feel free to copy, clone, and use the content of this repository. If you want to use it in a public situation, please cite the link of this repository. The original author of this repository is not responsible for any consequences of using the content of this repository.
+Feel free to copy, clone, and use the content of this repository. Please try your best to cite this repository. The original author of this repository is not responsible for any consequences of using the content of this repository.
 
 ## SFPL Tutorial
 
@@ -68,7 +68,7 @@ If ```<condition-expression>```'s value is zero, the ```if``` expression evaluat
 
 ```<condition-expression>``` evaluates to its value first. Then, only the chosen branch will be evaluated, which implies some errors and nonterminating cases could be bypassed.
 
-The types of ```<expression-1>``` and ```<expression-1>``` don't need to be the same. However, ```<condition-expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error message.
+The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the same. However, ```<condition-expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error message.
 
 #### 8. Function Definition
 
@@ -100,7 +100,7 @@ SFPL supports 4 type testers: ```isNil```, ```isInt```, ```isClosure```, and ```
 
 ```getIntLine``` and ```(putIntLine <expression>)```
 
-SFPL only supports integer input and output. Each line is treated as an integer. ```getIntLine``` reads one line from the standard input and tries to convert it to an integer. If it succeeds, it ```getIntLine``` evaluates to that integer; otherwise, the interpreter will terminate and print an error. ```putIntLine``` prints an integer as one line to the standard output and evaluates to ```nil```. 
+SFPL only supports integer input and output. Each line is treated as an integer. ```getIntLine``` reads one line from the standard input and tries to convert it to an integer. If it succeeds, it evaluates to that integer; otherwise, the interpreter will terminate and print an error. ```putIntLine``` prints an integer as one line to the standard output and evaluates to ```nil```. 
 
 ```<expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error.
 
@@ -117,7 +117,7 @@ When you use ```getIntLine``` and ```putIntLine```, please pay attention to the 
     *Main> interpret "(call (function factorial n (if (== n 0) 1 (* n (call factorial (- n 1))))) 6)"
     720
 
-## A Slightly Complex Example (Quicksort)
+## A Slightly Complicated Example (Quicksort)
 
 Here is a SFPL implementation of Quicksort. It first reads an integer n from the standard input, and then reads n integers from the standard input, sorts them, and prints them to the standard output.
 
