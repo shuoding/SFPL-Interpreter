@@ -125,75 +125,53 @@ You may copy this program to ```quicksort.sfpl``` and do something like ```readF
 
 ```
 (let printList
-(function pl l
-	(if (isNil l)
-		nil
-		(let dummy (putIntLine (first l)) (call pl (second l)))
-	)
-)
-(let getList
-(function gl n
-	(if (== 0 n)
-		nil
-		(pair getIntLine (call gl (- n 1)))
-	)
-)
-(let append
-(function apA l
-	(function apB x
-		(if (isNil l)
-			(pair x nil)
-			(pair (first l) (call (call apA (second l)) x))
-		)
-	)
-)
-(let filterLess
-(function flA x
-	(function flB l
-		(if (isNil l)
-			nil
-			(if (< (first l) x)
-				(pair (first l) (call (call flA x) (second l)))
-				(call (call flA x) (second l))
-			)
-		)
-	)
-)
-(let filterGreaterEqual
-(function fgeA x
-	(function fgeB l
-		(if (isNil l)
-			nil
-			(if (>= (first l) x)
-				(pair (first l) (call (call fgeA x) (second l)))
-				(call (call fgeA x) (second l))
-			)
-		)
-	)
-)
-(let concatenate
-(function catA la
-	(function catB lb
-		(if (isNil la)
-			lb
-			(pair (first la) (call (call catA (second la)) lb))
-		)
-	)
-)
-(let quickSort
-(function qs l
-	(if (isNil l)
-		nil
-		(let pivot (first l)
-		(let lHalf (call (call filterLess pivot) (second l))
-		(let rHalf (call (call filterGreaterEqual pivot) (second l))
-		(let lHalfSorted (call qs lHalf)
-		(let rHalfSorted (call qs rHalf)
-		(let lHalfSortedAndPivot (call (call append lHalfSorted) pivot)
-			(call (call concatenate lHalfSortedAndPivot) rHalfSorted)
-		))))))
-	)
-)
-(call printList (call quickSort (call getList getIntLine)))
-)))))))
+  (function pl l
+    (if (isNil l)
+      nil
+      (let dummy (putIntLine (first l)) (call pl (second l)))))
+  (let getList
+    (function gl n
+      (if (== 0 n)
+        nil
+        (pair getIntLine (call gl (- n 1)))))
+    (let append
+      (function apA l
+        (function apB x
+          (if (isNil l)
+            (pair x nil)
+	    (pair (first l) (call (call apA (second l)) x)))))
+      (let filterLess
+        (function flA x
+          (function flB l
+            (if (isNil l)
+              nil
+	      (if (< (first l) x)
+	        (pair (first l) (call (call flA x) (second l)))
+	        (call (call flA x) (second l))))))
+        (let filterGreaterEqual
+          (function fgeA x
+            (function fgeB l
+              (if (isNil l)
+                nil
+                (if (>= (first l) x)
+                  (pair (first l) (call (call fgeA x) (second l)))
+	          (call (call fgeA x) (second l))))))
+          (let concatenate
+            (function catA la
+              (function catB lb
+                (if (isNil la)
+                  lb
+	          (pair (first la) (call (call catA (second la)) lb)))))
+            (let quickSort
+              (function qs l
+                (if (isNil l)
+                  nil
+                  (let pivot (first l)
+                    (let lHalf (call (call filterLess pivot) (second l))
+	              (let rHalf (call (call filterGreaterEqual pivot) (second l))
+	                (let lHalfSorted (call qs lHalf)
+	                  (let rHalfSorted (call qs rHalf)
+	                    (let lHalfSortedAndPivot (call (call append lHalfSorted) pivot)
+                              (call (call concatenate lHalfSortedAndPivot) rHalfSorted)))))))))
+              (call printList (call quickSort (call getList getIntLine))))))))))
 ```
