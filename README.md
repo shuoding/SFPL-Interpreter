@@ -1,177 +1,19 @@
-# SFPL
+# A Toy Interpreter for a Toy Language
 
-SFPL (Small Functional Programming Language) is a very small dynamically typed functional programming language.
-
-This repository contains a SFPL interpreter written in Haskell. It doesn't contain a ```main``` function, and you can load it into GHCi and call the ```interpret``` function with your SFPL program (a string) as the argument.
-
-Integers in SFPL are represented by the ```Int``` type in GHCi, so they have size limits.
-
-This interpreter has been tested on ```GHCi, version 8.6.5```.
-
-Feel free to copy, clone, and use the content of this repository. Please try your best to cite this repository. The original author of this repository is not responsible for any consequences of using the content of this repository.
-
-## SFPL Tutorial
-
-SFPL's syntax is similar to Lisp's syntax. A SFPL program is an expression, which could be in one of the following forms.
-
-#### 1. Integer Literals
-
-```<nonnegative-integer>```
-
-You can only write nonnegative integer literals. For negative integer literals like ```-7```, please use something like ```(- 0 7)```.
-
-#### 2. The Nil Literal
-
-```nil```
-
-This is just a special value.
-
-#### 3. Integer Operations
-
-```(<integer-operator> <expression-1> <expression-2>)```
-
-SFPL supports 10 basic integer operators: ```+ - * / == != < <= > >=```. The meaning is clear. The values of comparison expressions are also integers, where ```1``` indicates true and ```0``` indicates false.
-
-```<expression-1>``` evaluates to its value before ```<expression-2>```.
-
-```<expression-1>``` and ```<expression-2>``` must evaluate to integers, otherwise the interpreter will terminate and print an error message.
-
-#### 4. Pair Construction
-
-```(pair <expression-1> <expression-2>)```
-
-```pair``` is used to construct pairs from two arbitrary valid expressions.
-
-```<expression-1>``` evaluates to its value before ```<expression-2>```.
-
-The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the same. You can use ```pair``` and ```nil``` to construct lists, such as ```(pair 1 (pair 2 (pair 3 nil)))```.
-
-#### 5. Extracting Components from Pairs
-
-```(first <expression>)``` and ```(second <expression>)```
-
-The type of ```<expression>``` must be pair, otherwise the interpreter will terminate and print an error message.
-
-#### 6. Let Binding
-
-```(let <variable> <expression-1> <expression-2>)```
-
-This is an easy way to introduce variables. Variable names can only contain English letters. If there are nested ```let``` bindings introducing duplicate variable names, the innermost one is effective.
-
-It acts like the call-by-value semantics, meaning that ```<expression-1>``` evaluates to its value before ```<expression-2>```.
-
-#### 7. If Expression
-
-```(if <condition-expression> <expression-1> <expression-2>)```
-
-If ```<condition-expression>```'s value is zero, the ```if``` expression evaluates to ```<expression-1>```'s value; otherwise, it evaluates to ```<expression-2>```'s value.
-
-```<condition-expression>``` evaluates to its value first. Then, only the chosen branch will be evaluated, which implies some errors and nonterminating cases could be bypassed.
-
-The types of ```<expression-1>``` and ```<expression-2>``` don't need to be the same. However, ```<condition-expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error message.
-
-#### 8. Function Definition
-
-```(function <function-name-variable> <parameter-variable> <function-body-expression>)```
-
-SFPL only supports one parameter functions, but you can imitate multi-parameter functions via currying, since higher order functions are supported.
-
-You can call ```<function-name-variable>``` in ```<function-body-expression>``` to define recursive functions. Notice that actually you can only use ```<function-name-variable>``` in ```<function-body-expression>```, and in order to call the function elsewhere, you can either call the function definition directly (something like ```(call (function f x x) 1)```) or use the ```let``` binding to create a new name for the function for later use.
-
-The whole function definition expression evaluates to a closure.
-
-There is no type associated to ```<parameter-variable>```, and one function can return different types of values based on its argument's type.
-
-#### 9. Function Call
-
-```(call <closure-expression> <argument-expression>)```
-
-```<closure-expression>``` evaluates to its value before ```<argument-expression>```.
-
-```<closure-expression>``` must evaluate to a closure, otherwise the interpreter will terminate and print an error message.
-
-#### 10. Type Testers
-
-```(<type-tester> <expression>)```
-
-SFPL supports 4 type testers: ```isNil```, ```isInt```, ```isClosure```, and ```isPair```. The return values of those testers are integers, where ```1``` indicates true and ```0``` indicates false.
-
-#### 11. Input and Output
-
-```getIntLine``` and ```(putIntLine <expression>)```
-
-SFPL only supports integer input and output. Each line is treated as an integer. ```getIntLine``` reads one line from the standard input and tries to convert it to an integer. If it succeeds, it evaluates to that integer; otherwise, the interpreter will terminate and print an error. ```putIntLine``` prints an integer as one line to the standard output and evaluates to ```nil```. 
-
-```<expression>``` must evaluate to an integer, otherwise the interpreter will terminate and print an error.
-
-When you use ```getIntLine``` and ```putIntLine```, please pay attention to the evaluation order.
-
-## Simple Examples
-
-    *Main> interpret "(+ 1 2)"
-    3
-    *Main> interpret "(putIntLine (+ 1 getIntLine))"
-    16
-    17
-    nil
-    *Main> interpret "(call (function factorial n (if (== n 0) 1 (* n (call factorial (- n 1))))) 6)"
-    720
-
-## A Slightly Complicated Example (Quicksort)
-
-Here is a SFPL implementation of Quicksort. It first reads an integer n from the standard input, and then reads n integers from the standard input, sorts them, and prints them to the standard output.
-
-You may copy this program to ```quicksort.sfpl``` and do something like ```readFile "quicksort.sfpl" >>= interpret``` in GHCi. Then you can manually type your input and see the results.
-
+## Syntax
 ```
-(let printList
-  (function pl l
-    (if (isNil l)
-      nil
-      (let dummy (putIntLine (first l)) (call pl (second l)))))
-  (let getList
-    (function gl n
-      (if (== 0 n)
-        nil
-        (pair getIntLine (call gl (- n 1)))))
-    (let append
-      (function apA l
-        (function apB x
-          (if (isNil l)
-            (pair x nil)
-	    (pair (first l) (call (call apA (second l)) x)))))
-      (let filterLess
-        (function flA x
-          (function flB l
-            (if (isNil l)
-              nil
-	      (if (< (first l) x)
-	        (pair (first l) (call (call flA x) (second l)))
-	        (call (call flA x) (second l))))))
-        (let filterGreaterEqual
-          (function fgeA x
-            (function fgeB l
-              (if (isNil l)
-                nil
-                (if (>= (first l) x)
-                  (pair (first l) (call (call fgeA x) (second l)))
-	          (call (call fgeA x) (second l))))))
-          (let concatenate
-            (function catA la
-              (function catB lb
-                (if (isNil la)
-                  lb
-	          (pair (first la) (call (call catA (second la)) lb)))))
-            (let quickSort
-              (function qs l
-                (if (isNil l)
-                  nil
-                  (let pivot (first l)
-                    (let lHalf (call (call filterLess pivot) (second l))
-	              (let rHalf (call (call filterGreaterEqual pivot) (second l))
-	                (let lHalfSorted (call qs lHalf)
-	                  (let rHalfSorted (call qs rHalf)
-	                    (let lHalfSortedAndPivot (call (call append lHalfSorted) pivot)
-                              (call (call concatenate lHalfSortedAndPivot) rHalfSorted)))))))))
-              (call printList (call quickSort (call getList getIntLine))))))))))
+prog -> num | var
+      | "(" "lambda" var prog ")"
+      | "(" "call" prog prog ")"
+      | "(" "let" var "=" prog "in" prog ")"
+      | "(" "if" prog "then" prog "else" prog ")"
+      | "(" "num?" prog ")"
+      | "(" "closure?" prog ")"
+      | "(" "+" prog prog ")" | "(" "-" prog prog ")" | "(" "*" prog prog ")" | "(" "/" prog prog ")"
+      | "(" "==" prog prog ")" | "(" "!=" prog prog ")" | "(" "<" prog prog ")" | "(" "<=" prog prog ")" | "(" ">" prog prog ")" | "(" ">=" prog prog ")"
+num -> <exact numbers in Racket>
+var -> <symbols in Racket>
 ```
+
+## Semantics
+Please see the code.
