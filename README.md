@@ -19,7 +19,8 @@ var -> <symbols in Racket>
 Please see the code.
 
 ## Examples
-```Racket> (interpret 10)
+```Racket
+> (interpret 10)
 10
 > (interpret '(lambda x x))
 (closure '(lambda x x) '())
