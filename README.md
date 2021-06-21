@@ -17,3 +17,20 @@ var -> <symbols in Racket>
 
 ## Semantics
 Please see the code.
+
+## Examples
+```Racket
+(interpret 10)
+(interpret '(lambda x x))
+(interpret '(call (lambda x (+ x x)) 10))
+(interpret '(let x = 10 in (+ x x)))
+(interpret '(if (== 0 0) then 1 else 0))
+(interpret '(num? 10))
+(interpret '(closure? (lambda x x)))
+(interpret '(let factorial =
+              (lambda n
+                (if (== n 0)
+                    then 1
+                    else (* n (call self (- n 1)))))
+              in (call factorial 10)))
+```
