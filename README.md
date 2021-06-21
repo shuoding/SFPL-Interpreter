@@ -33,4 +33,8 @@ Please see the code.
                     then 1
                     else (* n (call self (- n 1)))))
               in (call factorial 10)))
+(interpret '(let x = 10 in
+              (let f = (lambda y (+ x y)) in
+                (let x = 0 in
+                  (call f 10)))))
 ```
