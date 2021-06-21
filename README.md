@@ -16,7 +16,7 @@ var -> <symbols in Racket>
 ```
 
 ## Semantics
-Please see the code.
+Please see the interpreter's source code.
 
 ## Examples
 ```Racket
@@ -34,11 +34,10 @@ Please see the code.
 1
 > (interpret '(closure? (lambda x x)))
 1
-> (interpret '(let factorial =
-              (lambda n
-                (if (== n 0)
-                    then 1
-                    else (* n (call self (- n 1)))))
+> (interpret '(let factorial = (lambda n
+                               (if (== n 0)
+                                   then 1
+                                   else (* n (call self (- n 1)))))
               in (call factorial 10)))
 3628800
 > (interpret '(let x = 10 in
