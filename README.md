@@ -45,4 +45,11 @@ Please see the interpreter's source code.
                 (let x = 0 in
                   (call f 10)))))
 20
+> (interpret '(let max = (lambda a
+                         (lambda b
+                           (if (< a b)
+                               then b
+                               else a)))
+              in (call (call max 3) 5)))
+5
 ```
